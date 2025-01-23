@@ -1,7 +1,6 @@
 package com.mayara.dslist.model.entities;
 
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 
 import java.util.Objects;
 
@@ -15,17 +14,19 @@ public class Game {
 
     @Column(name = "game_year")
     private Integer year;
-    private Integer genre;
+    private String genre;
     private String platforms;
     private Double score;
     private String imgUrl;
+    @Column(columnDefinition = "TEXT")
     private String shortDescription;
+    @Column(columnDefinition = "TEXT")
     private String longDescription;
 
     public Game(){
     }
 
-    public Game(Long id, String title, Integer year, Integer genre, String platforms, Double score,
+    public Game(Long id, String title, Integer year, String genre, String platforms, Double score,
                 String imgUrl, String shortDescription, String longDescription) {
         this.id = id;
         this.title = title;
@@ -62,11 +63,11 @@ public class Game {
         this.year = year;
     }
 
-    public Integer getGenre() {
+    public String getGenre() {
         return genre;
     }
 
-    public void setGenre(Integer genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 
