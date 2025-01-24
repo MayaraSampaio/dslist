@@ -1,6 +1,7 @@
 package com.mayara.dslist.model.dto;
 
 import com.mayara.dslist.model.entities.Game;
+import com.mayara.dslist.projections.GameMinProjection;
 
 
 public class GameMinDTO {
@@ -17,8 +18,16 @@ public class GameMinDTO {
         id= entity.getId();
         title = entity.getTitle();
         year = entity.getYear();
-        imgUrl= entity.getGenre();
+        imgUrl= entity.getImgUrl();
         shortDescription= entity.getShortDescription();
+
+    }
+    public GameMinDTO(GameMinProjection projection){
+        id= projection.getId();
+        title = projection.getTitle();
+        year = projection.getYear();
+        imgUrl= projection.getImgUrl();
+        shortDescription= projection.getShortDescription();
 
     }
 

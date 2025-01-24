@@ -3,6 +3,7 @@ import com.mayara.dslist.model.dto.GameDTO;
 import com.mayara.dslist.model.dto.GameMinDTO;
 import com.mayara.dslist.model.entities.Game;
 import com.mayara.dslist.model.repositories.GameRepository;
+import com.mayara.dslist.projections.GameMinProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,4 +29,10 @@ public class GameService {
         Game result = gameRepository.findById(id).get();
         return new GameDTO(result);
     }
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> findByList(Long listId){
+        List<GameMinProjection> result= gameRepository.searchByList(listId);
+        return result.stream().map(x -> new GameMinDTO(x)).toList();
+    }
+
 }
