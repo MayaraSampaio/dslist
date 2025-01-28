@@ -2,12 +2,11 @@ package com.mayara.dslist.model.controllers;
 
 import com.mayara.dslist.model.dto.GameDTO;
 import com.mayara.dslist.model.dto.GameMinDTO;
+import com.mayara.dslist.model.dto.ReplacementDTO;
+import com.mayara.dslist.model.service.GameListService;
 import com.mayara.dslist.model.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +15,8 @@ import java.util.List;
 public class GameController {
     @Autowired
     GameService gameService;
+    @Autowired
+    GameListService gameListService;
 
     @GetMapping
     public List<GameMinDTO> findAll(){
@@ -25,5 +26,10 @@ public class GameController {
     @GetMapping(value = "/{id}")
     public GameDTO findById(@PathVariable Long id){
        return gameService.findById(id);
+    }
+
+    @PostMapping(value = "/{listId}/replacement")
+    public void move(@PathVariable Long listId, @RequestBody ReplacementDTO body) {
+        gameListService.move(listId, body.getSourceIndex(), body.getDestinationIndex());
     }
 }
